@@ -68,8 +68,8 @@
 <body class="pb-16 lg:pb-6">
 
     <!-- মোবাইল নম্বর ও পাসওয়ার্ড লগইন স্ক্রিন -->
-    <div id="authLoginOverlay" class="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl border-2 border-amber-400/70 space-y-4">
+    <div id="authLoginOverlay" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl border-2 border-amber-400/70 space-y-4 my-auto">
             <div class="text-center space-y-1.5">
                 <div class="w-14 h-14 mx-auto rounded-2xl gold-accent flex items-center justify-center text-emerald-950 text-2xl shadow-md border border-amber-200">
                     <i class="fas fa-user-shield"></i>
@@ -103,19 +103,19 @@
                 </button>
             </form>
 
-            <!-- সরাসরি লগইন স্ক্রিন থেকেই অ্যাডমিন পাসওয়ার্ড পরিবর্তন ও অ্যাপ ইন্সটল বাটন -->
+            <!-- সরাসরি লগইন স্ক্রিন থেকেই নিজের মতো পাসওয়ার্ড পরিবর্তন ও অ্যাপ ইন্সটল বাটন -->
             <div class="flex items-center justify-between gap-2 pt-1">
-                <button type="button" onclick="openQuickAdminPassResetModal()" class="flex-1 bg-amber-100 hover:bg-amber-200 text-amber-950 border border-amber-300 py-2 px-3 rounded-xl text-[11px] font-extrabold transition">
-                    <i class="fas fa-key mr-1"></i> অ্যাডমিন পাসওয়ার্ড পরিবর্তন
+                <button type="button" onclick="openQuickAdminPassResetModal()" class="flex-1 bg-amber-100 hover:bg-amber-200 text-amber-950 border border-amber-300 py-2.5 px-3 rounded-xl text-[11px] font-extrabold transition">
+                    <i class="fas fa-key mr-1"></i> লগইন পাসওয়ার্ড পরিবর্তন
                 </button>
-                <button type="button" onclick="triggerPwaInstallPrompt()" class="flex-1 bg-sky-100 hover:bg-sky-200 text-sky-950 border border-sky-300 py-2 px-3 rounded-xl text-[11px] font-extrabold transition">
+                <button type="button" onclick="triggerPwaInstallPrompt()" class="flex-1 bg-sky-600 hover:bg-sky-700 text-white py-2.5 px-3 rounded-xl text-[11px] font-extrabold shadow-sm transition">
                     <i class="fas fa-download mr-1"></i> অ্যাপ ইন্সটল করুন
                 </button>
             </div>
 
             <div class="bg-amber-50/90 border border-amber-200 rounded-2xl p-3 text-[11px] text-gray-700 space-y-1">
-                <div class="font-extrabold text-amber-950"><i class="fas fa-key text-amber-600 mr-1"></i> ডিফল্ট প্রোফাইল তথ্য:</div>
-                <div>• <b>মাস্টার অ্যাডমিন:</b> <span class="font-mono font-bold">01787265892</span> / পাসওয়ার্ড: <span class="font-mono font-bold">admin123</span></div>
+                <div class="font-extrabold text-amber-950"><i class="fas fa-info-circle text-amber-600 mr-1"></i> বর্তমান লগইন তথ্য:</div>
+                <div>• <b>মাস্টার অ্যাডমিন:</b> <span id="loginHintAdminPhone" class="font-mono font-bold">01787265892</span> / পাসওয়ার্ড: <span id="loginHintAdminPass" class="font-mono font-bold">admin123</span></div>
                 <div>• <b>স্টাফ / কারিগর:</b> <span class="font-mono font-bold">01882221510</span> / পাসওয়ার্ড: <span class="font-mono font-bold">staff123</span></div>
             </div>
         </div>
@@ -162,8 +162,7 @@
                     name: "কারীমা ফ্যাশন টেইলার্স",
                     short_name: "Karima Fashion",
                     description: "কারীমা ফ্যাশন টেইলার্স — প্রিমিয়াম টেইলারিং ERP ও POS সিস্টেম",
-                    start_url: "./",
-                    scope: "./",
+                    start_url: window.location.href.split('#')[0],
                     display: "standalone",
                     orientation: "portrait",
                     background_color: "#042f2e",
@@ -721,7 +720,7 @@
                 <div class="bg-white p-3.5 rounded-2xl border border-gray-200 shadow-sm flex flex-wrap justify-between items-center gap-2">
                     <div>
                         <h2 class="text-base font-extrabold text-emerald-950">পোশাক, মাপ, ডিজাইন ও নিরাপত্তা সেটিংস</h2>
-                        <p class="text-[11px] text-gray-500">আপনার দোকানের রেট, মাপের ঘর এবং অ্যাডমিন PIN কোড নিয়ন্ত্রণ করুন</p>
+                        <p class="text-[11px] text-gray-500">আপনার দোকানের রেট, মাপের ঘর এবং লগইন পাসওয়ার্ড নিয়ন্ত্রণ করুন</p>
                     </div>
                     <button onclick="saveTailorSettingsToDb()" class="royal-gradient text-amber-300 px-4 py-2 rounded-xl text-xs font-extrabold shadow">
                         <i class="fas fa-save mr-1"></i> সব সেটিংস সেভ করুন
@@ -733,7 +732,7 @@
                     <button onclick="switchSettingsTab('measurements')" id="stab-measurements" class="s-tab-btn bg-gray-100 text-gray-700 px-3 py-1.5 rounded-xl">২. শরীরের মাপের ঘর</button>
                     <button onclick="switchSettingsTab('dropdowns')" id="stab-dropdowns" class="s-tab-btn bg-gray-100 text-gray-700 px-3 py-1.5 rounded-xl">৩. ডিজাইন ড্রপডাউন</button>
                     <button onclick="switchSettingsTab('specials')" id="stab-specials" class="s-tab-btn bg-gray-100 text-gray-700 px-3 py-1.5 rounded-xl">৪. স্পেশাল চার্জ</button>
-                    <button onclick="switchSettingsTab('security')" id="stab-security" class="s-tab-btn bg-gray-100 text-gray-700 px-3 py-1.5 rounded-xl">৫. PIN ও ডাটা ইম্পোর্ট</button>
+                    <button onclick="switchSettingsTab('security')" id="stab-security" class="s-tab-btn bg-gray-100 text-gray-700 px-3 py-1.5 rounded-xl">৫. পাসওয়ার্ড ও ইন্সটল</button>
                 </div>
 
                 <div id="spanel-garments" class="s-panel bg-white p-4 rounded-2xl border border-gray-200 space-y-3">
@@ -774,6 +773,40 @@
                 </div>
 
                 <div id="spanel-security" class="s-panel hidden bg-white p-4 rounded-2xl border border-gray-200 space-y-4 text-xs">
+                    <!-- মাস্টার অ্যাডমিন লগইন মোবাইল নম্বর ও পাসওয়ার্ড পরিবর্তন বক্স -->
+                    <div class="bg-amber-50/80 border-2 border-amber-300 p-4 rounded-2xl space-y-3 max-w-lg">
+                        <div class="font-extrabold text-amber-950 text-sm">
+                            <i class="fas fa-key text-amber-700 mr-1"></i> আপনার অ্যাডমিন লগইন নম্বর ও পাসওয়ার্ড পরিবর্তন করুন
+                        </div>
+                        <p class="text-[11px] text-gray-600">আপনার পছন্দমতো মোবাইল নম্বর এবং নতুন পাসওয়ার্ড বসিয়ে আপডেট করুন।</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                            <div>
+                                <label class="text-[10px] font-bold text-gray-700 block mb-0.5">অ্যাডমিন মোবাইল নম্বর *</label>
+                                <input type="tel" id="editMasterAdminPhoneInput" placeholder="যেমন: 017XXXXXXXX" class="w-full border border-amber-300 rounded-xl px-3 py-2 bg-white font-bold">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold text-gray-700 block mb-0.5">নতুন পাসওয়ার্ড *</label>
+                                <input type="text" id="newMasterAdminPasswordInput" placeholder="নতুন পাসওয়ার্ড লিখুন" class="w-full border border-emerald-400 rounded-xl px-3 py-2 bg-white font-bold">
+                            </div>
+                        </div>
+                        <button type="button" onclick="changeMasterAdminPassword()" class="royal-gradient text-amber-300 px-5 py-2.5 rounded-xl font-extrabold text-xs shadow-sm">
+                            <i class="fas fa-check-circle mr-1"></i> নতুন নম্বর ও পাসওয়ার্ড সেভ করুন
+                        </button>
+                    </div>
+
+                    <!-- অ্যাপ ইন্সটল (PWA) স্ট্যাটাস ও গাইড -->
+                    <div class="bg-sky-50 border border-sky-200 p-4 rounded-2xl space-y-2 max-w-lg">
+                        <div class="font-extrabold text-sky-950 text-sm">
+                            <i class="fas fa-mobile-alt text-sky-700 mr-1"></i> ফোনে অ্যাপ হিসেবে ইন্সটল (Install App)
+                        </div>
+                        <p class="text-[11px] text-gray-700 leading-relaxed">
+                            অ্যান্ড্রয়েড ক্রোমে নিচের বাটনে চাপ দিন অথবা ব্রাউজারের ডানপাশের (⋮) মেনু থেকে <b>"Install app" / "Add to Home screen"</b> সিলেক্ট করুন। iPhone-এ Safari-এর <b>Share (↑)</b> থেকে <b>"Add to Home Screen"</b> দিন।
+                        </p>
+                        <button type="button" id="settingsInstallPwaBtn" onclick="triggerPwaInstallPrompt()" class="bg-sky-700 hover:bg-sky-800 text-white px-4 py-2 rounded-xl font-extrabold text-xs shadow-sm">
+                            <i class="fas fa-download mr-1"></i> এখনই অ্যাপ ইন্সটল করুন
+                        </button>
+                    </div>
+
                     <div class="bg-emerald-50/70 border border-emerald-200 p-3.5 rounded-2xl space-y-2.5">
                         <div class="flex justify-between items-center">
                             <span class="font-extrabold text-emerald-950 text-sm"><i class="fas fa-cloud text-emerald-700 mr-1"></i> অনলাইন ক্লাউড কানেকশন (Karima Fashion Firebase)</span>
@@ -803,40 +836,6 @@
                         <label class="font-bold text-gray-700 block">অ্যাডমিন PIN কোড পরিবর্তন করুন (৪ সংখ্যা):</label>
                         <input type="text" maxlength="4" id="settingAdminPinInput" placeholder="যেমন: 1234" class="border rounded-xl px-3 py-2 font-extrabold tracking-widest w-40">
                         <p class="text-[11px] text-gray-500">পরিবর্তন করার পর উপরে "সব সেটিংস সেভ করুন" বাটনে চাপুন।</p>
-                    </div>
-
-                    <!-- মাস্টার অ্যাডমিন লগইন পাসওয়ার্ড পরিবর্তন বক্স -->
-                    <div class="bg-amber-50/80 border border-amber-300 p-3.5 rounded-2xl space-y-2.5 max-w-md">
-                        <div class="font-extrabold text-amber-950 text-sm">
-                            <i class="fas fa-key text-amber-700 mr-1"></i> মাস্টার অ্যাডমিন পাসওয়ার্ড পরিবর্তন করুন
-                        </div>
-                        <p class="text-[11px] text-gray-600">লগইন স্ক্রিনে ব্যবহৃত আপনার পাসওয়ার্ডটি এখান থেকে সরাসরি পরিবর্তন করতে পারবেন।</p>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                            <div>
-                                <label class="text-[10px] font-bold text-gray-700 block mb-0.5">নতুন পাসওয়ার্ড *</label>
-                                <input type="text" id="newMasterAdminPasswordInput" placeholder="নতুন পাসওয়ার্ড দিন" class="w-full border rounded-xl px-3 py-1.5 bg-white font-bold">
-                            </div>
-                            <div>
-                                <label class="text-[10px] font-bold text-gray-700 block mb-0.5">পাসওয়ার্ড নিশ্চিত করুন *</label>
-                                <input type="text" id="confirmMasterAdminPasswordInput" placeholder="আবার লিখুন" class="w-full border rounded-xl px-3 py-1.5 bg-white font-bold">
-                            </div>
-                        </div>
-                        <button type="button" onclick="changeMasterAdminPassword()" class="royal-gradient text-amber-300 px-4 py-2 rounded-xl font-extrabold text-xs shadow-sm">
-                            <i class="fas fa-check-circle mr-1"></i> পাসওয়ার্ড আপডেট করুন
-                        </button>
-                    </div>
-
-                    <!-- অ্যাপ ইন্সটল (PWA) স্ট্যাটাস ও গাইড -->
-                    <div class="bg-sky-50 border border-sky-200 p-3.5 rounded-2xl space-y-2 max-w-md">
-                        <div class="font-extrabold text-sky-950 text-sm">
-                            <i class="fas fa-mobile-alt text-sky-700 mr-1"></i> ফোনে অ্যাপ হিসেবে ইন্সটল (Install App)
-                        </div>
-                        <p class="text-[11px] text-gray-700 leading-relaxed">
-                            অ্যান্ড্রয়েড ক্রোমে নিচের বাটনে চাপ দিন অথবা মেনু (⋮) থেকে <b>"Install app" / "Add to Home screen"</b> সিলেক্ট করুন। iPhone-এ Safari-এর <b>Share (↑)</b> থেকে <b>"Add to Home Screen"</b> দিন।
-                        </p>
-                        <button type="button" id="settingsInstallPwaBtn" onclick="triggerPwaInstallPrompt()" class="bg-sky-700 hover:bg-sky-800 text-white px-4 py-2 rounded-xl font-extrabold text-xs shadow-sm">
-                            <i class="fas fa-download mr-1"></i> এখনই অ্যাপ ইন্সটল করুন
-                        </button>
                     </div>
 
                     <!-- স্টাফ / কারিগর প্রোফাইল ও অ্যাক্সেস নিয়ন্ত্রণ -->
@@ -1108,29 +1107,29 @@
         </div>
     </div>
 
-    <!-- সরাসরি অ্যাডমিন পাসওয়ার্ড পরিবর্তন মডাল (লগইন স্ক্রিন ও ভেতর থেকে ব্যবহারযোগ্য) -->
+    <!-- সরাসরি লগইন স্ক্রিন থেকে নিজের মতো পাসওয়ার্ড ও ফোন নম্বর পরিবর্তনের মডাল -->
     <div id="quickAdminPassModal" class="fixed inset-0 bg-black/75 z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-sm w-full p-5 space-y-3 shadow-2xl border-2 border-amber-400 text-xs">
             <div class="flex justify-between items-center border-b pb-2">
-                <h3 class="font-extrabold text-emerald-950 text-sm"><i class="fas fa-key text-amber-600 mr-1"></i> মাস্টার অ্যাডমিন পাসওয়ার্ড পরিবর্তন</h3>
+                <h3 class="font-extrabold text-emerald-950 text-sm"><i class="fas fa-key text-amber-600 mr-1"></i> লগইন নম্বর ও পাসওয়ার্ড পরিবর্তন</h3>
                 <button onclick="closeModal('quickAdminPassModal')" class="text-xl font-bold text-gray-500">&times;</button>
             </div>
-            <p class="text-[11px] text-gray-600">নিরাপত্তার জন্য ৪ সংখ্যার অ্যাডমিন PIN (ডিফল্ট: <b>1234</b>) এবং নতুন পাসওয়ার্ড দিন:</p>
+            <p class="text-[11px] text-gray-600">আপনার বর্তমান পাসওয়ার্ড (প্রথমবার <b>admin123</b>) দিয়ে নিজের পছন্দমতো মোবাইল নম্বর ও নতুন পাসওয়ার্ড বসান:</p>
             <div>
-                <label class="font-bold text-gray-700 block mb-0.5">অ্যাডমিন PIN কোড *</label>
-                <input type="password" maxlength="4" id="quickResetPinInput" placeholder="যেমন: 1234" class="w-full border rounded-xl px-3 py-2 font-extrabold tracking-widest text-center">
+                <label class="font-bold text-gray-700 block mb-0.5">বর্তমান পাসওয়ার্ড *</label>
+                <input type="text" id="quickResetOldPassInput" placeholder="বর্তমান পাসওয়ার্ড (যেমন: admin123)" class="w-full border rounded-xl px-3 py-2 font-bold">
             </div>
             <div>
-                <label class="font-bold text-gray-700 block mb-0.5">নতুন অ্যাডমিন পাসওয়ার্ড *</label>
-                <input type="text" id="quickResetNewPassInput" placeholder="নতুন পাসওয়ার্ড লিখুন" class="w-full border border-emerald-400 rounded-xl px-3 py-2 font-bold">
+                <label class="font-bold text-gray-700 block mb-0.5">আপনার মোবাইল নম্বর (লগইন আইডি) *</label>
+                <input type="tel" id="quickResetPhoneInput" placeholder="যেমন: 017XXXXXXXX" class="w-full border border-emerald-300 rounded-xl px-3 py-2 font-bold">
             </div>
             <div>
-                <label class="font-bold text-gray-700 block mb-0.5">পাসওয়ার্ড নিশ্চিত করুন *</label>
-                <input type="text" id="quickResetConfirmPassInput" placeholder="আবার নতুন পাসওয়ার্ড লিখুন" class="w-full border border-emerald-400 rounded-xl px-3 py-2 font-bold">
+                <label class="font-bold text-gray-700 block mb-0.5">নতুন পাসওয়ার্ড বসান *</label>
+                <input type="text" id="quickResetNewPassInput" placeholder="আপনার পছন্দমতো পাসওয়ার্ড লিখুন" class="w-full border-2 border-emerald-500 rounded-xl px-3 py-2 font-bold bg-emerald-50/30">
             </div>
             <div class="flex gap-2 pt-1">
-                <button onclick="closeModal('quickAdminPassModal')" class="flex-1 py-2 border rounded-xl font-bold">বাতিল</button>
-                <button onclick="submitQuickAdminPasswordReset()" class="flex-1 royal-gradient text-amber-300 py-2 rounded-xl font-extrabold shadow">সেভ করুন</button>
+                <button onclick="closeModal('quickAdminPassModal')" class="flex-1 py-2.5 border rounded-xl font-bold">বাতিল</button>
+                <button onclick="submitQuickAdminPasswordReset()" class="flex-1 royal-gradient text-amber-300 py-2.5 rounded-xl font-extrabold shadow">সেভ করুন</button>
             </div>
         </div>
     </div>
@@ -1235,7 +1234,7 @@
             if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
                 try {
                     const swCode = `
-                        const CACHE_NAME = 'karima-fashion-v1';
+                        const CACHE_NAME = 'karima-fashion-v2';
                         self.addEventListener('install', (e) => { self.skipWaiting(); });
                         self.addEventListener('activate', (e) => { e.waitUntil(self.clients.claim()); });
                         self.addEventListener('fetch', (event) => {
@@ -1266,61 +1265,71 @@
                 const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
                 if (isIos) {
                     showToast("iPhone-এ Safari ব্রাউজারের নিচে Share (↑) বাটনে চেপে 'Add to Home Screen' দিন।");
+                } else if (location.protocol === 'file:') {
+                    showToast("ফাইল ম্যানেজার থেকে নয়, আপনার GitHub Pages ওয়েব লিংকটি Chrome-এ খুলে ইন্সটল করুন।", true);
                 } else {
-                    showToast("GitHub Pages লিংকটি Chrome-এ খুলে ডানপাশের (⋮) মেনু থেকে 'Install app' বা 'Add to Home screen' চাপুন।");
+                    showToast("Chrome ব্রাউজারের ডানপাশের উপরে (⋮) মেনুতে ক্লিক করে 'Install app' বা 'Add to Home screen' চাপুন।");
                 }
             }
         };
 
         window.openQuickAdminPassResetModal = function() {
-            document.getElementById('quickResetPinInput').value = "";
+            const master = (tailorConfig.staffProfiles || []).find(p => p.role === 'master_admin' || p.id === 'master_admin');
+            document.getElementById('quickResetOldPassInput').value = "";
+            document.getElementById('quickResetPhoneInput').value = master ? master.phone : "01787265892";
             document.getElementById('quickResetNewPassInput').value = "";
-            document.getElementById('quickResetConfirmPassInput').value = "";
             document.getElementById('quickAdminPassModal').classList.remove('hidden');
         };
 
         window.submitQuickAdminPasswordReset = async function() {
-            const pin = document.getElementById('quickResetPinInput').value.trim();
+            const oldPass = document.getElementById('quickResetOldPassInput').value.trim();
+            const newPhone = document.getElementById('quickResetPhoneInput').value.trim();
             const newPass = document.getElementById('quickResetNewPassInput').value.trim();
-            const confirmPass = document.getElementById('quickResetConfirmPassInput').value.trim();
-            const correctPin = tailorConfig.adminPin || APP_SETTINGS.defaultAdminPin || "1234";
-
-            if (pin !== correctPin) {
-                showToast("ভুল অ্যাডমিন PIN কোড! (ডিফল্ট: 1234)", true);
-                return;
-            }
-            if (newPass.length < 4) {
-                showToast("নতুন পাসওয়ার্ড অন্তত ৪ অক্ষরের হতে হবে!", true);
-                return;
-            }
-            if (newPass !== confirmPass) {
-                showToast("উভয় পাসওয়ার্ড এক হয়নি!", true);
-                return;
-            }
 
             if (!Array.isArray(tailorConfig.staffProfiles) || !tailorConfig.staffProfiles.length) {
                 tailorConfig.staffProfiles = JSON.parse(JSON.stringify(DEFAULT_TAILOR_CONFIG.staffProfiles));
             }
             let masterProfile = tailorConfig.staffProfiles.find(p => p.role === 'master_admin' || p.id === 'master_admin');
+            const currentValidPass = masterProfile ? String(masterProfile.password) : "admin123";
+            const currentPin = String(tailorConfig.adminPin || "1234");
+
+            if (oldPass !== currentValidPass && oldPass !== currentPin) {
+                showToast("বর্তমান পাসওয়ার্ড সঠিক নয়! (ডিফল্ট: admin123)", true);
+                return;
+            }
+            if (!newPhone || newPhone.length < 6) {
+                showToast("সঠিক মোবাইল নম্বর দিন!", true);
+                return;
+            }
+            if (newPass.length < 4) {
+                showToast("নতুন পাসওয়ার্ড অন্তত ৪ অক্ষরের দিন!", true);
+                return;
+            }
+
             if (masterProfile) {
+                masterProfile.phone = newPhone;
                 masterProfile.password = newPass;
             }
             await persistRecord("settings", "tailorConfig", tailorConfig);
+
+            document.getElementById('authPhoneInput').value = newPhone;
+            document.getElementById('authPasswordInput').value = newPass;
             closeModal('quickAdminPassModal');
             renderSettingsPanels();
-            showToast("অ্যাডমিন পাসওয়ার্ড সফলভাবে পরিবর্তিত হয়েছে! নতুন পাসওয়ার্ড দিয়ে লগইন করুন।");
+            updateLoginScreenHints();
+            showToast("আপনার নতুন নম্বর ও পাসওয়ার্ড সেভ হয়েছে! এখন লগইন করুন।");
         };
 
         window.changeMasterAdminPassword = async function() {
+            const newPhone = (document.getElementById('editMasterAdminPhoneInput')?.value || "").trim();
             const newPass = (document.getElementById('newMasterAdminPasswordInput')?.value || "").trim();
-            const confirmPass = (document.getElementById('confirmMasterAdminPasswordInput')?.value || "").trim();
 
-            if (newPass.length < 4) {
-                showToast("নতুন পাসওয়ার্ড অন্তত ৪ অক্ষরের হতে হবে!", true);
+            if (!newPhone || newPhone.length < 6) {
+                showToast("সঠিক মোবাইল নম্বর লিখুন!", true);
                 return;
             }
-            if (newPass !== confirmPass) {
-                showToast("উভয় পাসওয়ার্ড এক হয়নি! আবার মিলিয়ে লিখুন।", true);
+            if (newPass.length < 4) {
+                showToast("নতুন পাসওয়ার্ড অন্তত ৪ অক্ষরের হতে হবে!", true);
                 return;
             }
 
@@ -1333,7 +1342,7 @@
                 masterProfile = {
                     id: "master_admin",
                     name: "মাস্টার অ্যাডমিন (কারীমা ফ্যাশন)",
-                    phone: APP_SETTINGS.shopPhone || "01787265892",
+                    phone: newPhone,
                     password: newPass,
                     role: "master_admin",
                     roleLabel: "মাস্টার অ্যাডমিন",
@@ -1347,20 +1356,32 @@
                 };
                 tailorConfig.staffProfiles.unshift(masterProfile);
             } else {
+                masterProfile.phone = newPhone;
                 masterProfile.password = newPass;
             }
 
             if (activeStaffUser && (activeStaffUser.id === masterProfile.id || activeStaffUser.role === 'master_admin')) {
+                activeStaffUser.phone = newPhone;
                 activeStaffUser.password = newPass;
                 sessionStorage.setItem(ACTIVE_AUTH_SESSION_KEY, JSON.stringify(activeStaffUser));
             }
 
             await persistRecord("settings", "tailorConfig", tailorConfig);
             document.getElementById('newMasterAdminPasswordInput').value = "";
-            document.getElementById('confirmMasterAdminPasswordInput').value = "";
             renderSettingsPanels();
-            showToast("মাস্টার অ্যাডমিন পাসওয়ার্ড সফলভাবে আপডেট হয়েছে!");
+            updateLoginScreenHints();
+            showToast("নতুন মোবাইল নম্বর ও পাসওয়ার্ড সফলভাবে সেভ হয়েছে!");
         };
+
+        function updateLoginScreenHints() {
+            const master = (tailorConfig.staffProfiles || []).find(p => p.role === 'master_admin' || p.id === 'master_admin');
+            if (master) {
+                const phEl = document.getElementById('loginHintAdminPhone');
+                const psEl = document.getElementById('loginHintAdminPass');
+                if (phEl) phEl.textContent = master.phone;
+                if (psEl) psEl.textContent = master.password;
+            }
+        }
 
         function updateDbBadge(online) {
             const badge = document.getElementById('dbStatusBadge');
@@ -1391,6 +1412,7 @@
                     if (parsed.expensesData) expensesData = parsed.expensesData;
                 }
             } catch (e) { console.warn(e); }
+            updateLoginScreenHints();
         }
 
         function saveToLocalStorage() {
@@ -1410,6 +1432,7 @@
                         tailorConfig.staffProfiles = JSON.parse(JSON.stringify(DEFAULT_TAILOR_CONFIG.staffProfiles));
                     }
                     saveToLocalStorage();
+                    updateLoginScreenHints();
                     renderAllViews();
                     if (activeStaffUser) {
                         const refreshedUser = tailorConfig.staffProfiles.find(p => p.id === activeStaffUser.id || p.phone === activeStaffUser.phone);
@@ -1882,7 +1905,7 @@
             // মাপের ঘরগুলো
             document.getElementById('mModalFieldsContainer').innerHTML = `
                 <div class="text-xs font-extrabold text-emerald-950 mb-1.5 border-b pb-1">শরীরের মাপ (ইঞ্চি):</div>
-                ${(tailorConfig.measurements || []).map((m, idx) => `
+                ${(tailorConfig.measurements || []).map((m) => `
                     <div class="flex items-center justify-between gap-2 text-xs">
                         <label class="font-bold text-gray-700">${m}:</label>
                         <input type="text" data-meas-label="${m}" placeholder="0" class="meas-val-input w-24 border border-emerald-300 rounded-lg px-2 py-1 text-center font-extrabold bg-white focus:outline-emerald-700">
@@ -2126,7 +2149,7 @@
             }
             await persistRecord("customers", cust.id, cust);
 
-            // স্টক কমানো (যদি কাপড় বিক্রি হয়)
+            // স্টক কমানো
             for (const item of posCart) {
                 if (item.fabricId) {
                     const fab = fabricsData.find(f => f.id === item.fabricId);
@@ -2263,7 +2286,6 @@
             showToast(`মেমো #${memo} মুছে ফেলা হয়েছে।`);
         };
 
-        // অর্ডার এডিট মডাল
         window.openEditOrderModal = function(orderId) {
             const ord = ordersData.find(o => o.id === orderId);
             if (!ord) return;
@@ -2329,7 +2351,6 @@
             showToast(`মেমো #${ord.memoNo} সফলভাবে আপডেট হয়েছে!`);
         };
 
-        // বকেয়া আদায়
         window.openDuePaymentModal = function(orderId) {
             const ord = ordersData.find(o => o.id === orderId);
             if (!ord) return;
@@ -2819,6 +2840,12 @@
 
             // ৫. PIN ও স্টাফ প্রোফাইল
             document.getElementById('settingAdminPinInput').value = tailorConfig.adminPin || "1234";
+            const master = (tailorConfig.staffProfiles || []).find(p => p.role === 'master_admin' || p.id === 'master_admin');
+            const phoneInp = document.getElementById('editMasterAdminPhoneInput');
+            if (phoneInp && master && !phoneInp.value) {
+                phoneInp.value = master.phone || "01787265892";
+            }
+
             document.getElementById('settingsStaffProfilesList').innerHTML = (tailorConfig.staffProfiles || []).map((p, idx) => `
                 <div class="border rounded-xl p-3 bg-gray-50 flex flex-wrap justify-between items-center gap-2">
                     <div>
